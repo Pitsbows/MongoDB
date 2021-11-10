@@ -1,6 +1,7 @@
 package com.ironhack.EnterpriseJavaDevelopment78.controller.impl;
 
 import com.ironhack.EnterpriseJavaDevelopment78.model.Football;
+import com.ironhack.EnterpriseJavaDevelopment78.repository.FootballRepository;
 import com.ironhack.EnterpriseJavaDevelopment78.services.impl.FootballService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class FootballController {
     @Autowired
     FootballService footballService;
 
+
     @PostMapping("/team")
     public ResponseEntity addFootball(@RequestBody Football football) {
         footballService.addFootball(football);
@@ -31,6 +33,22 @@ public class FootballController {
     @GetMapping("/prueba")
     public String getPrueba(){
         return "Esto es una prueba";
+    }
+
+    @GetMapping("/teams/{id}")
+    public ResponseEntity<Football> getTeamlById(@PathVariable("id") String id) {
+        return footballService.getTeamlById(id);
+
+    }
+
+    @PutMapping("/teams/{id}")
+    public ResponseEntity<Football> updateTeam(@PathVariable("id") String id, @RequestBody Football team) {
+       return footballService.updateTeam(id, team);
+    }
+
+    @DeleteMapping("/teams/{id}")
+    public ResponseEntity<HttpStatus> deleteTeam(@PathVariable("id") String id) {
+        return footballService.deleteTeam(id);
     }
 
 }
